@@ -1,0 +1,35 @@
+// The way to download and run NVIDIA graphic card driver & CUDA tool kit 
+///////////////////////////////////////////////////////////////
+I wanna share my experience on installing CUDA 7.5 (in order to use with Theano) on Ubuntu 15.10.
+
+I installed Ubuntu 15.10 and the video driver (352.41) from the "Additional Drivers" tab;
+
+Installed few dependencies like nvidia-modprobe (fix permissions problems), and for the samples compiling freeglut3-dev libx11-dev libxmu-dev libxi-dev libglu1-mesa-dev
+
+And because it needs GCC 4.9: sudo apt-get install gcc-4.9 g++-4.9, then made symlinks in /opt/compiler_cuda(created the folder with an arbitrary name of my choice) as follows:
+$ ls -la /opt/compiler_cuda/
+lrwxrwxrwx 1 root root   22 Nov  2 16:14 cc -> /opt/compiler_cuda/gcc
+lrwxrwxrwx 1 root root   16 Nov  2 16:13 g++ -> /usr/bin/g++-4.9
+lrwxrwxrwx 1 root root   16 Nov  2 16:12 gcc -> /usr/bin/gcc-4.9
+Registered update-alternatives with:
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 50 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
+
+Downloaded "runfile (local)" 15.04 version, from CUDA 7.5 Downloads; and installed with:
+sudo sh cuda_7.5.18_linux.run --silent --toolkit --override
+sudo sh cuda_7.5.18_linux.run --silent --samples --override
+and appended in .bash_aliases (.bashrc reads it):
+export PATH=/usr/local/cuda-7.5/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
+
+Appended compiler-bindir = /opt/compiler_cuda in nvcc.profile, so nvcc can use it.
+
+//////////////////////////////////////////////////////////////
+
+// GOOD TIP 
+// avoid X server conflict when you download Nvidia graphic card !!!!
+
+Add the --no-x-check flag when you run this in the terminal:
+
+sudo ./NVIDIAxxxx.run --no-x-check
+

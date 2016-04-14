@@ -1,0 +1,16 @@
+Simple
+remove the CUDA files in /usr/local/cuda-5.0
+
+Advanced
+Uninstall just nvidia-cuda-toolkit
+sudo apt-get remove nvidia-cuda-toolkit
+
+Uninstall nvidia-cuda-toolkit and it's dependencies
+sudo apt-get remove --auto-remove nvidia-cuda-toolkit
+
+Purging config/data
+sudo apt-get purge nvidia-cuda-toolkit or sudo apt-get purge --auto-remove nvidia-cuda-toolkit
+
+Additionally, delete the /opt/cuda and ~/NVIDIA_GPU_Computing_SDK folders if they are present. and remove the export PATH=$PATH:/opt/cuda/bin and export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cuda/lib:/opt/cuda/lib64 lines of the ~/.bash_profile file
+
+
